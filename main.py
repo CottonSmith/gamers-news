@@ -9,9 +9,9 @@ response.raise_for_status()
 
 soup = BeautifulSoup(response.text, features="html.parser")
 
-articles = soup.find_all('div', class_="article-content")
+articles = soup.find_all('div', class_="article clr")
 
-articles_link = soup.find_all('a')
+
 
 
 if not articles:
@@ -19,7 +19,7 @@ if not articles:
 else:
     for index, article in enumerate(articles, start=1):
        
-        headline = article.find_previous('h2', class_="title")
+        headline = article.find('h2', class_="title")
         if headline:
             print(f"Заголовок статьи {index}:", headline.text.strip())
             # if articles_link and "href":
@@ -27,7 +27,12 @@ else:
         else:
             print(f"Заголовок статьи {index} не найден.")
 
-       
+        state_url = article.find('a', class_="big-link") 
+        if state_url:
+            print(f"Ссылка статьи {index}:", state_url["href"])
+        else:
+            print(f"ссылка на статью {index} не найдено.")
+
         description = article.find('div', class_="preview-text") 
         if description:
             print(f"Описание статьи {index}:", description.text.strip())
