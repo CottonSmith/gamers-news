@@ -64,7 +64,7 @@ else:
             try:
                 image_response = requests.get(image_url)
                 image_response.raise_for_status()  # Проверяем, что запрос успешен
-                with open(f"image_{index}.jpg", "wb") as f:
+                with open(f"images/image_{index}.jpg", "wb") as f:
                     f.write(image_response.content)
                 print(f"Картинка {index} успешно скачана.")
             except Exception as e:
